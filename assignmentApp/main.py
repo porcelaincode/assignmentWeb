@@ -7,14 +7,19 @@ import sys
 import threading
 
 
-def make_assignment(fileData):
+def make_assignment(fileData, date, font_to_use, page_type):
 
     images_formed = []
 
     shelfFile = shelve.open("assignmentApp/extras/PageDim")
     
     #Opening the blank page
-    page = Image.open("assignmentApp/page_templates/page.jpeg")
+    if page_type == "ruled":
+        page_path = "page.jpeg"
+    else:
+        page_path = "white.jpg"
+    
+    page = Image.open(f"assignmentApp/page_templates/{page_path}")
 
     def convert_to_pixels(cm, multiplicative_factor):
         return cm*multiplicative_factor
@@ -58,7 +63,18 @@ def make_assignment(fileData):
     draw = ImageDraw.Draw(copy)
 
     #Making ImageFont object of users font
-    myfont = ImageFont.truetype("assignmentApp/fonts/Snake.ttf", 105)
+
+    
+    if font_to_use == "Snake":
+        font_path = "Snake.ttf"
+    elif font_to_use == "Qournatte":
+        font_path = "Qournatte.ttf"
+    elif font_to_use == "Mumsies":
+        font_path = "Mumsies.ttf"
+    else:
+        font_path = "Sour Dough.ttf"
+
+    myfont = ImageFont.truetype(f"assignmentApp/fonts/{font_path}", 105)
 
     # Open custom text document
     text = fileData
@@ -79,7 +95,7 @@ def make_assignment(fileData):
     twidth = page_tmar
 
     for index, letter in enumerate(text):
-        print(index, letter)
+        
         try:
             if(letter == " "):
                 nlflag = 0
@@ -98,17 +114,19 @@ def make_assignment(fileData):
                 temp_copy = copy.convert("RGB")
                 if(page_no == 1):
                     first_image = temp_copy
+                    file_name = f"text{page_no}.png"
+                    images_formed.append(file_name)
                 else:
                     image_list.append(temp_copy)
-                copy.save(f'assignmentApp/custom/text{page_no}.png')
-                file_name = f"text{page_no}.png"
-                images_formed.append(file_name)
+                copy.save(f'assignmentApp/static/assignmentApp/text{page_no}.png')
                 print(f"Saved page {page_no}.")
                 copy = page.copy()
                 draw = ImageDraw.Draw(copy)
                 lwidth = 0
                 twidth = page_tmar
                 page_no+=1
+                file_name = f"text{page_no}.png"
+                images_formed.append(file_name)
 
             if((letter == "\n") or (lwidth >= (page_hor-page_lmar-100))):
                 #If there is no space to write characters
@@ -126,7 +144,7 @@ def make_assignment(fileData):
             print(f"Error Occured: {e}")
 
 
-    copy.save(f'assignmentApp/custom/text{page_no}.png')
+    copy.save(f'assignmentApp/static/assignmentApp/text{page_no}.png')
     copy.convert("RGB")
     image_list.append(copy)
 

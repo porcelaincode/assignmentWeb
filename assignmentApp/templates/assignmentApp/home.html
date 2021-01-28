@@ -2,26 +2,66 @@
 
 {%block content%}
 
+{% load static %}
     <nav class="level pt-2">
         <div class="level-item has-text-centered">
             <div>
-              <p class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-file-text" viewBox="0 0 16 16">
+              <p class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-file-text" viewBox="0 0 16 16">
                 <path d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>
                 <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
               </svg></p>
-              <p class="title has-text-light">Count: 453</p>
+              {%if error%}
+              <div class="notification">
+                <button class="delete"></button>
+                {{error}}
+              </div>
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                    const $notification = $delete.parentNode;
+
+                    $delete.addEventListener('click', () => {
+                      $notification.parentNode.removeChild($notification);
+                    });
+                  });
+                });
+              </script>
+              {%endif%}
             </div>
           </div>
     </nav>
 
   <div class="columns">
-    <div class="column" style="height: 100%;">
+    <div class="column" style="min-height: 100vh;">
         <section class="section pt-0">
+          
             <form id="upload_form" method="POST" enctype="multipart/form-data">
             {%csrf_token%}
             <div class="container is-fluid">
-              <h2 class="has-text-white mb-1">2) Upload file containing your text.
-                (preferably .txt file)
+              <h2 class="has-text-white mb-1">1) Choose your preferred handwriting (from <a href="">Snake</a>, <a href="">Qournatte</a>, <a href="">Sour Dough</a>, <a href="">Mumsies</a>)
+              </h2>
+              <div class="select mt-1">
+                <select  name="fonts" id="fonts">
+                  <option value="Snake">Snake</option>
+                  <option value="Qournatte">Qournatte</option>
+                  <option value="SourDough">Sour Dough</option>
+                  <option value="Mumsies">Mumsies</option>
+                </select>
+              </div>
+              <br/>
+              <br/>
+              <h2 class="has-text-white">2) Select page type (select 'blank' for card-type texts)
+              </h2>
+              <div class="select mt-1">
+                <select name="page_type" id="page_type">
+                  <option value="ruled">Ruled</option>
+                  <option value="blank">Blank</option>
+                </select>
+              </div>
+              <br/>
+              <br/>
+              <h2 class="has-text-white mb-1">3) Upload file containing your text.
+                (preferably .txt file) <br/>Download <a href="{% static 'assignmentApp/sample.txt' %}">sample text file</a> to edit.
               </h2>
                 <div class="field">
                   <div id="file-js-example" class="file has-name is-dark">
@@ -54,13 +94,13 @@
                     }
                   </script>
                         <br/>
-                        <h2 class="has-text-white mb-1">3) Confirm and Upload</h2>
+                        <h2 class="has-text-white mb-1">4) Confirm and Upload</h2>
                         <div class="field is-grouped">
                             <div class="control">
                                 <input class="button is-link" type="submit" value="Make my Assignment">
                             </div>
                             <div class="control">
-                              <button class="button is-link is-light">Discard</button>
+                              <a href="" class="button is-link is-light">Discard</a>
                             </div>
                           </div>
                   </div>
@@ -70,16 +110,27 @@
             </div>
         </form>
         <div class="container mt-5 is-fluid">
+          {%if file_content %}
           <h2 class="mt-2 has-text-white">
-            {{ file_content }}
+          Your Assignment -
+          <br/>
+          <br/>
+            <h4 class="has-text-white" style="overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 10; /* number of lines to show */
+            -webkit-box-orient: vertical; font-size: small;">{{ file_content }}</h4>
           </h2>
+          {%endif%}
         </div>
         </section>
     </div>
-    <div class="column" style="height: 100%;">
+    <div class="column">
         <section class="section pt-0">
             <div class="container is-fluid has-text-white">
-                Your generated assignment will appear here.
+              {%for path in paths%}
+                <img src="static/assignmentApp/{{path}}" alt="AssignmentImage">
+              {%endfor%}
             </div>
         </section>
     </div>
