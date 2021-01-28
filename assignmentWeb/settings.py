@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,10 +121,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# STATICFILES_DIRS = (
+#     os.page.join(BASE_DIR, "/static/"),
+# )
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# STATICFILES_STORAGE = "whitenoise.django.GzipManifestStaticFilesStorage"
+
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-WHITENOISE_USE_FINDERS = True
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'live-static-files', "media-root ")
