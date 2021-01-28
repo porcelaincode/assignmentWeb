@@ -1,1 +1,4 @@
 Pillow==8.1.0
+Django
+gunicorn
+whitenoise
