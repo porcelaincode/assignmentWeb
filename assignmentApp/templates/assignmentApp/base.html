@@ -15,14 +15,11 @@
     </style>
   </head>
   <body>
-  {%block content%}
-  {%endblock%}
-  <section class="section">
-    
-    <div class="content has-text-centered">
+    <div class="container is-fluid pt-3">
+      <div class="content has-text-centered">
       <h3 class="has-text-white">assignmentWeb</h3>
       <h5 class="has-text-white">type it out.</h5>
-      <div class="field is-grouped mb-2" style="justify-content: center;">
+      <div class="field is-grouped is-grouped-multiline mb-2" style="justify-content: center;">
         <div class="control">
           <div class="tags has-addons">
             <span class="tag is-dark">framework</span>
@@ -59,6 +56,8 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
+  {%block content%}
+  {%endblock%}
   </body>
 </html>

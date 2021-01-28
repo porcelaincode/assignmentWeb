@@ -3,7 +3,6 @@ from django.http import HttpResponse
 
 from datetime import datetime
 
-from .forms import FileForm
 from .main import make_assignment
 
 
