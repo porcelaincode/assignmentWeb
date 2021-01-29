@@ -20,5 +20,5 @@ Type out your assignment in template text file provided. Select the handwriting 
 These are the major frameworks that were used in building this project.
 
 - [Django](https://www.djangoproject.com)
-- [PIL](https://pypi.org/project/Pillow/)
+- [Python Imaging Library](https://pypi.org/project/Pillow/)
 - [Bulma](https://bulma.io/)
