@@ -118,7 +118,7 @@ def make_assignment(fileData, date, font_to_use, page_type):
                     images_formed.append(file_name)
                 else:
                     image_list.append(temp_copy)
-                copy.save(f'assignmentApp/static/assignmentApp/text{page_no}.png')
+                copy.save(f'staticfiles/assignmentApp/text{page_no}.png')
                 print(f"Saved page {page_no}.")
                 copy = page.copy()
                 draw = ImageDraw.Draw(copy)
@@ -144,7 +144,7 @@ def make_assignment(fileData, date, font_to_use, page_type):
             print(f"Error Occured: {e}")
 
 
-    copy.save(f'assignmentApp/static/assignmentApp/text{page_no}.png')
+    copy.save(f'staticfiles/assignmentApp/text{page_no}.png')
     copy.convert("RGB")
     image_list.append(copy)
 
