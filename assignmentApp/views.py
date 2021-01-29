@@ -15,6 +15,7 @@ def home(request):
         try:
             fileData = request.FILES["uploaded_file"].read().decode('ascii')
             fileData = fileData.replace("\r","")
+            fileData = fileData.replace("\t"," ")
             context["file_content"] = fileData
             
             img_path_array = make_assignment(fileData, date_, font, page_type)
