@@ -2,11 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from datetime import datetime
+import os
 
 from .main import make_assignment
 
 
 def home(request):
+#     remove all existing generated images
+    os.system("staticfiles/assignmentApp && rm *.png")
     date_ = datetime.now().strftime("%d%m%y%H%M%S")
     context = {}
     if request.method == 'POST':
