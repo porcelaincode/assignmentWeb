@@ -9,6 +9,10 @@ import threading
 
 def make_assignment(fileData, date, font_to_use, page_type):
 
+    
+#     remove all existing generated images
+    os.system("staticfiles/assignmentApp && rm *.png")
+    
     images_formed = []
 
     shelfFile = shelve.open("assignmentApp/extras/PageDim")
