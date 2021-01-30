@@ -13,6 +13,8 @@
 
 ## About The Project
 
+You can view the demo project here - [assignmentWeb](https://type-assignment.herokuapp.com)
+
 Type out your assignment in template text file provided. Select the handwriting you prefer. Select the type of page you want your assignment on. Save processed images to your local machine!
 
 ### Built With
